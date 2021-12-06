@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Catalog xmlns = "http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Models/Catalog">
+   <Course xmlns = "http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Models/Course">
+	  <id>1</id>
+      <author>Nelson Dias</author>
+      <title>Learn Mulesoft: 12 steps to master the development of APIs!</title>
+      <genre>Services Integration</genre>
+      <price>9.99</price>
+      <publishDate>2020-10-01</publishDate>
+   </Course>
+   <Course xmlns = "http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Models/Course" >
+	  <id>2</id>
+      <author>Nelson Dias</author>
+      <title>Learn WSO2 MI: a Step Guide to Master ESB and API Integration</title>
+      <genre>Services Integration</genre>
+      <price>9.99</price>
+      <publishDate>2020-12-16</publishDate>
+    </Course>
+</Catalog>

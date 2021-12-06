@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:Course xmlns:ns0="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Models/Course">
+    <ns0:id>2</ns0:id>
+    <ns0:author>Nelson Dias</ns0:author>
+    <ns0:title>Learn WSO2 MI: a Step Guide to Master ESB and API Integration</ns0:title>
+    <ns0:genre>Services Integration</ns0:genre>
+    <ns0:price>9.99</ns0:price>
+    <ns0:publishDate>2020-12-16</ns0:publishDate>
+</ns0:Course>

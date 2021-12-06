@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:Course="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Models/Course"
+	 targetNamespace="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Models/Course"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="Course">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:int"/>
+				<xs:element name="author" type="xs:string"/>
+				<xs:element name="title" type="xs:string"/>
+				<xs:element name="genre" type="xs:string"/>
+				<xs:element name="price" type="xs:float"/>
+				<xs:element name="publishDate" type="xs:date"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

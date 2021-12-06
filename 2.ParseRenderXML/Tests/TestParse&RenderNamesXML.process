@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Models/Context" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/SharedProcesses/WriteToFileRequest" xmlns:ns2="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header" xmlns:ns4="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderNamesXMLRequest" xmlns:ns3="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderCatalogXMLRequest">
+    <pd:name>Tests/TestParse&amp;RenderNamesXML.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1638544155354</pd:targetNamespace>
+    <pd:activity name="Parse&amp;RenderNamesXML">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>294</pd:x>
+        <pd:y>73</pd:y>
+        <config>
+            <processName>/Processes/Services/SharedFolders/Parse&amp;RenderNamesXML.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns4:ParseRenderNamesXMLRequest>
+                <ns2:Header>
+                    <pfx:Context>
+                        <pfx:correlationId>
+                            <xsl:value-of select="'123456'"/>
+                        </pfx:correlationId>
+                    </pfx:Context>
+                    <ns2:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns2:timestamp>
+                </ns2:Header>
+                <ns4:Body>
+                    <ns4:sourcePath>
+                        <xsl:value-of select="'C:\Users\NelsonDias\OneDrive - P8G Group, Lda\Ambiente de Trabalho\TIBCO_Udemy_Course\Files\Input\'"/>
+                    </ns4:sourcePath>
+                    <ns4:sourceFileName>
+                        <xsl:value-of select="'Names.xml'"/>
+                    </ns4:sourceFileName>
+                </ns4:Body>
+            </ns4:ParseRenderNamesXMLRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse&amp;RenderNamesXML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse&amp;RenderNamesXML</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>
