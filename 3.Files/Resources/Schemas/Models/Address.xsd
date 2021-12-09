@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:Address="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Models/Address"
+	 targetNamespace="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Models/Address"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="Address">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="address" type="xs:string"/>
+				<xs:element name="city" type="xs:string"/>
+				<xs:element name="region" type="xs:string"/>
+				<xs:element name="postalCode" type="xs:int"/>
+				<xs:element name="country" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
