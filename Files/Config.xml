@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<DataDefinition>
+   <Element>
+		<source>
+			<sourcePath>C:\Users\NelsonDias\OneDrive - P8G Group, Lda\Ambiente de Trabalho\TIBCO_Udemy_Course\Files\Input\Portugal\</sourcePath>
+			<sourceFilePattern>*</sourceFilePattern>
+		</source>
+		<target>
+			<targetPath>C:\Users\NelsonDias\OneDrive - P8G Group, Lda\Ambiente de Trabalho\TIBCO_Udemy_Course\Files\Output\Portugal\</targetPath>
+		</target>
+		<messageSelector>PT</messageSelector>
+   </Element>
+   <Element>
+		<source>
+			<sourcePath>C:\Users\NelsonDias\OneDrive - P8G Group, Lda\Ambiente de Trabalho\TIBCO_Udemy_Course\Files\Input\Spain\</sourcePath>
+		<sourceFilePattern>*</sourceFilePattern>
+		</source>
+		<target>
+			<targetPath>C:\Users\NelsonDias\OneDrive - P8G Group, Lda\Ambiente de Trabalho\TIBCO_Udemy_Course\Files\Output\Spain\</targetPath>
+		</target>
+		<messageSelector>SP</messageSelector>
+   </Element>
+   <Element>
+		<source>
+			<sourcePath>C:\Users\NelsonDias\OneDrive - P8G Group, Lda\Ambiente de Trabalho\TIBCO_Udemy_Course\Files\Input\Germany\</sourcePath>
+			<sourceFilePattern>*</sourceFilePattern>
+		</source>
+		<target>
+			<targetPath>C:\Users\NelsonDias\OneDrive - P8G Group, Lda\Ambiente de Trabalho\TIBCO_Udemy_Course\Files\Output\Germany\</targetPath>
+		</target>
+		<messageSelector>GER</messageSelector>
+   </Element>
+</DataDefinition>
