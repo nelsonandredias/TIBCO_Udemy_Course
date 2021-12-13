@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:ProcessFilesRequest="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Orchestration/ProcessFilesRequest"
+	 xmlns:Header="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header"
+	 targetNamespace="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Orchestration/ProcessFilesRequest"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header" schemaLocation="../Commons/Header.xsd"/>
+	<xs:element name="ProcessFilesRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Header:Header"/>
+				<xs:element ref="ProcessFilesRequest:Body"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Body">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="source">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="sourcePath" type="xs:string"/>
+							<xs:element name="sourceFilePattern" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="target">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="targetPath" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
