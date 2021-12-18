@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <pd:name>Processes/Commons/GenerateUUID.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <uuid>
+            <correlationId>
+                <xsl:value-of select="$Generate-UUID/javaCodeActivityOutput/uuid"/>
+            </correlationId>
+        </uuid>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="uuid">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="correlationId" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>455</pd:endX>
+    <pd:endY>67</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1639829150123</pd:targetNamespace>
+    <pd:activity name="Generate UUID">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>305</pd:x>
+        <pd:y>67</pd:y>
+        <config>
+            <fileName>GenerateUUIDGenerateUUID</fileName>
+            <packageName>Processes.Commons.GenerateUUID</packageName>
+            <fullsource>package Processes.Commons.GenerateUUID;
+
+import java.util.*;
+import java.io.*;
+
+public class GenerateUUIDGenerateUUID{
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected String uuid = "";
+	public String getuuid() {
+		return uuid;
+	}
+	public void setuuid(String val) {
+		uuid = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+	public GenerateUUIDGenerateUUID() {
+	}
+	public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	Out : String uuid
+* Available Variables: DO NOT MODIFY *****/
+
+UUID uuid = UUID.randomUUID();
+
+String struuid = String.valueOf(uuid);
+
+setuuid(struuid);
+
+     }
+}
+</fullsource>
+            <outputData>
+                <row>
+                    <fieldName>uuid</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+            </outputData>
+            <byteCode>
+                <class>
+                    <name>GenerateUUIDGenerateUUID</name>
+                    <byteCode>yv66vgAAADQAKQkABwAYCgAIABkIABoKABsAHAoAHQAeCgAHAB8HACAHACEBAAR1dWlkAQASTGphdmEvbGFuZy9TdHJpbmc7AQAHZ2V0dXVpZAEAFCgpTGphdmEvbGFuZy9TdHJpbmc7AQAEQ29kZQEAD0xpbmVOdW1iZXJUYWJsZQEAB3NldHV1aWQBABUoTGphdmEvbGFuZy9TdHJpbmc7KVYBAAY8aW5pdD4BAAMoKVYBAAZpbnZva2UBAApFeGNlcHRpb25zBwAiAQAKU291cmNlRmlsZQEAHUdlbmVyYXRlVVVJREdlbmVyYXRlVVVJRC5qYXZhDAAJAAoMABEAEgEAAAcAIwwAJAAlBwAmDAAnACgMAA8AEAEAN1Byb2Nlc3Nlcy9Db21tb25zL0dlbmVyYXRlVVVJRC9HZW5lcmF0ZVVVSURHZW5lcmF0ZVVVSUQBABBqYXZhL2xhbmcvT2JqZWN0AQATamF2YS9sYW5nL0V4Y2VwdGlvbgEADmphdmEvdXRpbC9VVUlEAQAKcmFuZG9tVVVJRAEAEigpTGphdmEvdXRpbC9VVUlEOwEAEGphdmEvbGFuZy9TdHJpbmcBAAd2YWx1ZU9mAQAmKExqYXZhL2xhbmcvT2JqZWN0OylMamF2YS9sYW5nL1N0cmluZzsAIQAHAAgAAAABAAQACQAKAAAABAABAAsADAABAA0AAAAdAAEAAQAAAAUqtAABsAAAAAEADgAAAAYAAQAAAAoAAQAPABAAAQANAAAAIgACAAIAAAAGKiu1AAGxAAAAAQAOAAAACgACAAAADQAFAA4AAQARABIAAQANAAAAKwACAAEAAAALKrcAAioSA7UAAbEAAAABAA4AAAAOAAMAAAAQAAQACAAKABEAAQATABIAAgANAAAAMwACAAMAAAAPuAAETCu4AAVNKiy2AAaxAAAAAQAOAAAAEgAEAAAAFwAEABkACQAbAA4AHQAUAAAABAABABUAAQAWAAAAAgAX</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Generate UUID</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Generate UUID</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

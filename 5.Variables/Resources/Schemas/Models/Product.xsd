@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:Product="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Models/Product"
+	 targetNamespace="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Models/Product"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="Product">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="productId" type="xs:string"/>
+				<xs:element name="description" type="xs:string"/>
+				<xs:element name="displayName" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
