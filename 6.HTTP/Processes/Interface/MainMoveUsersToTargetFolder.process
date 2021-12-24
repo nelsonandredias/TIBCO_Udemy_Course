@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Orchestration/MoveUsersToTargetFolderRequest" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Services/MoveFilesRequest" xmlns:ns="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:ns1="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Orchestration/MoveUsersToTargetFolderRequest" schemaLocation="/Resources/Schemas/Orchestration/MoveUsersToTargetFolderRequest.xsd"/>
+    <pd:name>Processes/Interface/MainMoveUsersToTargetFolder.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:MoveUsersToTargetFolderRequest"/>
+    <pd:startX>85</pd:startX>
+    <pd:startY>91</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>658</pd:endX>
+    <pd:endY>93</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1639406264288</pd:targetNamespace>
+    <pd:activity name="Log Start">
+        <pd:type>com.tibco.pe.core.WriteToLogActivity</pd:type>
+        <pd:resourceType>ae.activities.log</pd:resourceType>
+        <pd:x>216</pd:x>
+        <pd:y>90</pd:y>
+        <config>
+            <role>User</role>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <message>
+                    <xsl:value-of select="'Start - Main'"/>
+                </message>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Log End">
+        <pd:type>com.tibco.pe.core.WriteToLogActivity</pd:type>
+        <pd:resourceType>ae.activities.log</pd:resourceType>
+        <pd:x>500</pd:x>
+        <pd:y>93</pd:y>
+        <config>
+            <role>User</role>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <message>
+                    <xsl:value-of select="'End - Main'"/>
+                </message>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MoveFiles">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>366</pd:x>
+        <pd:y>90</pd:y>
+        <config>
+            <processName>/Processes/Services/SharedFolders/MoveFiles.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx2:MoveFilesRequest>
+                <xsl:copy-of select="$Start/pfx:MoveUsersToTargetFolderRequest/ns1:Header"/>
+                <pfx2:Body>
+                    <pfx2:source>
+                        <pfx2:sourceDirectoryPath>
+                            <xsl:value-of select="$Start/pfx:MoveUsersToTargetFolderRequest/pfx:Body/pfx:source/pfx:sourceDirectoryPath"/>
+                        </pfx2:sourceDirectoryPath>
+                        <pfx2:sourceFileName>
+                            <xsl:value-of select="$Start/pfx:MoveUsersToTargetFolderRequest/pfx:Body/pfx:source/pfx:sourceFileName"/>
+                        </pfx2:sourceFileName>
+                    </pfx2:source>
+                    <pfx2:target>
+                        <pfx2:targetDirectoryPath>
+                            <xsl:value-of select="$Start/pfx:MoveUsersToTargetFolderRequest/pfx:Body/pfx:target/pfx:targetDirectoryPath"/>
+                        </pfx2:targetDirectoryPath>
+                        <pfx2:targetFileName>
+                            <xsl:value-of select="$Start/pfx:MoveUsersToTargetFolderRequest/pfx:Body/pfx:target/pfx:targetFileName"/>
+                        </pfx2:targetFileName>
+                    </pfx2:target>
+                </pfx2:Body>
+            </pfx2:MoveFilesRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Log Start</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log Start</pd:from>
+        <pd:to>MoveFiles</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MoveFiles</pd:from>
+        <pd:to>Log End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log End</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>
