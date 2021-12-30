@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/7.Databases/Resources/Schemas/Services/AddCountriesRequest" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/7.Databases/Resources/Schemas/Services/AddCountriesResponse" xmlns:ns="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header" xmlns:ns2="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Response">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/7.Databases/Resources/Schemas/Services/AddCountriesRequest" schemaLocation="/Resources/Schemas/Services/AddCountriesRequest.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/7.Databases/Resources/Schemas/Services/AddCountriesResponse" schemaLocation="/Resources/Schemas/Services/AddCountriesResponse.xsd"/>
+    <pd:name>Processes/Services/Database/AddCountries.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:AddCountriesRequest"/>
+    <pd:startX>127</pd:startX>
+    <pd:startY>130</pd:startY>
+    <pd:returnBindings>
+        <pfx2:AddCountriesResponse>
+            <xsl:copy-of select="$Start/pfx:AddCountriesRequest/ns:Header"/>
+            <pfx2:Body>
+                <ns2:Response>
+                    <ns2:message>
+                        <xsl:value-of select="'records have been added to database table'"/>
+                    </ns2:message>
+                    <ns2:responseStatus>
+                        <xsl:value-of select="'SUCCESS'"/>
+                    </ns2:responseStatus>
+                </ns2:Response>
+            </pfx2:Body>
+        </pfx2:AddCountriesResponse>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx2:AddCountriesResponse"/>
+    <pd:endX>539</pd:endX>
+    <pd:endY>124</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1640786803262</pd:targetNamespace>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>204</pd:x>
+        <pd:y>35</pd:y>
+        <pd:width>249</pd:width>
+        <pd:height>167</pd:height>
+        <pd:collapsedWidth>52</pd:collapsedWidth>
+        <pd:collapsedHeight>69</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Start/pfx:AddCountriesRequest/pfx:Body/pfx:records</pd:over>
+            <pd:iterationElementSlot>currentRecord</pd:iterationElementSlot>
+            <pd:indexSlot>index</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>JDBC Update</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>JDBC Update</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="JDBC Update">
+            <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+            <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+            <pd:x>324</pd:x>
+            <pd:y>125</pd:y>
+            <config>
+                <timeout>10</timeout>
+                <commit>false</commit>
+                <emptyStrAsNil>false</emptyStrAsNil>
+                <jdbcSharedConfig>/Resources/Connections/JDBC/JDBC Connection.sharedjdbc</jdbcSharedConfig>
+                <statement>INSERT INTO countries (COUNTRY_NAME,COUNTRY_CODE) VALUES (?,?);</statement>
+                <Prepared_Param_DataType>
+                    <parameter>
+                        <parameterName>countryName</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>countryCode</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                </Prepared_Param_DataType>
+            </config>
+            <pd:inputBindings>
+                <jdbcUpdateActivityInput>
+                    <countryName>
+                        <xsl:value-of select="$currentRecord/pfx:records/pfx:countryName"/>
+                    </countryName>
+                    <countryCode>
+                        <xsl:value-of select="$currentRecord/pfx:records/pfx:countryCode"/>
+                    </countryCode>
+                </jdbcUpdateActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

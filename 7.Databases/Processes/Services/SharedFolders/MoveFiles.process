@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Services/MoveFilesRequest" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Services/MoveFilesResponse" xmlns:ns02="www.tibco.com/plugin/Sleep" xmlns:ns="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header" xmlns:ns0="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns2="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Response" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/file">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Services/MoveFilesRequest" schemaLocation="/Resources/Schemas/Services/MoveFilesRequest.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Services/MoveFilesResponse" schemaLocation="/Resources/Schemas/Services/MoveFilesResponse.xsd"/>
+    <pd:name>Processes/Services/SharedFolders/MoveFiles.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:MoveFilesRequest"/>
+    <pd:startX>135</pd:startX>
+    <pd:startY>158</pd:startY>
+    <pd:returnBindings>
+        <pfx2:MoveFilesResponse>
+            <xsl:copy-of select="$Start/pfx:MoveFilesRequest/ns:Header"/>
+            <pfx2:Body>
+                <ns2:Response>
+                    <ns2:message>
+                        <xsl:value-of select="'file has been moved'"/>
+                    </ns2:message>
+                    <ns2:responseStatus>
+                        <xsl:value-of select="'SUCCESS'"/>
+                    </ns2:responseStatus>
+                    <ns2:data>
+                        <xsl:copy-of select="$Rename-File/ns1:RenameActivityOutput/fileInfo"/>
+                    </ns2:data>
+                </ns2:Response>
+            </pfx2:Body>
+        </pfx2:MoveFilesResponse>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx2:MoveFilesResponse"/>
+    <pd:endX>596</pd:endX>
+    <pd:endY>161</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1639060400268</pd:targetNamespace>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>221</pd:x>
+        <pd:y>14</pd:y>
+        <pd:width>290</pd:width>
+        <pd:height>274</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>errorLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:indexSlot>index</pd:indexSlot>
+            <pd:errorCondition>$index = 3</pd:errorCondition>
+            <pd:suspendAfterErrorRetry>false</pd:suspendAfterErrorRetry>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Rename File</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Rename File</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Rename File</pd:from>
+            <pd:to>Sleep</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>error</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Sleep</pd:from>
+            <pd:to>Generate Error</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-65536</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Rename File">
+            <pd:type>com.tibco.plugin.file.FileRenameActivity</pd:type>
+            <pd:resourceType>ae.activities.FileRenameActivity</pd:resourceType>
+            <pd:x>332</pd:x>
+            <pd:y>82</pd:y>
+            <config>
+                <overwrite>true</overwrite>
+            </config>
+            <pd:inputBindings>
+                <ns1:RenameActivityConfig>
+                    <fromFileName>
+                        <xsl:value-of select="concat($Start/pfx:MoveFilesRequest/pfx:Body/pfx:source/pfx:sourceDirectoryPath,$Start/pfx:MoveFilesRequest/pfx:Body/pfx:source/pfx:sourceFileName)"/>
+                    </fromFileName>
+                    <toFileName>
+                        <xsl:value-of select="concat($Start/pfx:MoveFilesRequest/pfx:Body/pfx:target/pfx:targetDirectoryPath,$Start/pfx:MoveFilesRequest/pfx:Body/pfx:target/pfx:targetFileName)"/>
+                    </toFileName>
+                </ns1:RenameActivityConfig>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Sleep">
+            <pd:type>com.tibco.plugin.timer.SleepActivity</pd:type>
+            <pd:resourceType>ae.activities.sleep</pd:resourceType>
+            <pd:x>333</pd:x>
+            <pd:y>202</pd:y>
+            <config/>
+            <pd:inputBindings>
+                <ns02:SleepInputSchema>
+                    <IntervalInMillisec>
+                        <xsl:value-of select="$index*10000"/>
+                    </IntervalInMillisec>
+                </ns02:SleepInputSchema>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Generate Error">
+            <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+            <pd:resourceType>ae.activities.throw</pd:resourceType>
+            <pd:x>443</pd:x>
+            <pd:y>204</pd:y>
+            <config>
+                <faultName/>
+            </config>
+            <pd:inputBindings>
+                <ns0:ActivityInput>
+                    <message>
+                        <xsl:value-of select="concat('file has failed to be moved. Retry attempt: ',$index)"/>
+                    </message>
+                </ns0:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

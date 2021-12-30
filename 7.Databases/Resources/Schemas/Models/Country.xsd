@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:Country="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Models/Country"
+	 targetNamespace="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Models/Country"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="Country">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Country:countryCode"/>
+				<xs:element ref="Country:countryName"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="countryName" type="xs:string"/>
+	<xs:element name="countryCode" type="xs:string"/>
+</xs:schema>

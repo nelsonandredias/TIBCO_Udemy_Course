@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:Header="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header"
+	 xmlns:GetCountriesByIdRequest="http://www.tibco.com/schemas/7.Databases/Resources/Schemas/Services/GetCountriesByIdRequest"
+	 targetNamespace="http://www.tibco.com/schemas/7.Databases/Resources/Schemas/Services/GetCountriesByIdRequest"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header" schemaLocation="../Commons/Header.xsd"/>
+	<xs:element name="GetCountriesByIdRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Header:Header"/>
+				<xs:element ref="GetCountriesByIdRequest:Body"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Body">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="queryParam" type="xs:string" minOccurs="0"/>
+				<xs:element name="data" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any namespace="##any" processContents="lax"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
