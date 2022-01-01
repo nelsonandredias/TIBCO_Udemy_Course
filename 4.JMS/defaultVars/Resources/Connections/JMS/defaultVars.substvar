@@ -2,6 +2,14 @@
 <repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
 	<globalVariables>
 		<globalVariable>
+			<name>AssignementQueue</name>
+			<value>Q.Assignement</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1641061661744</modTime>
+		</globalVariable>
+		<globalVariable>
 			<name>CopyUsersQueue</name>
 			<value>Q.CopyUsers2ToTargetFolder</value>
 			<deploymentSettable>true</deploymentSettable>
