@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/Orders" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/ShipInfo" xmlns:ns="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/Order">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/Orders" schemaLocation="/Resources/Schemas/Models/Orders.xsd"/>
+    <pd:name>Tests/TestOrderSchema.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1641051191207</pd:targetNamespace>
+    <pd:activity name="Orders">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>302</pd:x>
+        <pd:y>66</pd:y>
+        <config>
+            <element ref="pfx:Order"/>
+        </config>
+        <pd:inputBindings>
+            <pfx:Order>
+                <ns:Order>
+                    <ns:CustomerID>
+                        <xsl:value-of select="'GREAL'"/>
+                    </ns:CustomerID>
+                    <ns:EmployeeID>
+                        <xsl:value-of select="'5'"/>
+                    </ns:EmployeeID>
+                    <ns:OrderDate>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns:OrderDate>
+                    <ns:RequiredDate>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns:RequiredDate>
+                    <pfx2:ShipInfo>
+                        <pfx2:ShipVia>
+                            <xsl:value-of select="2"/>
+                        </pfx2:ShipVia>
+                        <pfx2:Freight>
+                            <xsl:value-of select="3.35"/>
+                        </pfx2:Freight>
+                        <pfx2:ShipName>
+                            <xsl:value-of select="'Great Lakes Food Market'"/>
+                        </pfx2:ShipName>
+                        <pfx2:ShipAddress>
+                            <xsl:value-of select="'2732 Baker Blvd.'"/>
+                        </pfx2:ShipAddress>
+                        <pfx2:ShipCity>
+                            <xsl:value-of select="'Eugene'"/>
+                        </pfx2:ShipCity>
+                        <pfx2:ShipRegion>
+                            <xsl:value-of select="'OR'"/>
+                        </pfx2:ShipRegion>
+                        <pfx2:ShipPostalCode>
+                            <xsl:value-of select="97403"/>
+                        </pfx2:ShipPostalCode>
+                        <pfx2:ShipCountry>
+                            <xsl:value-of select="'USA'"/>
+                        </pfx2:ShipCountry>
+                    </pfx2:ShipInfo>
+                </ns:Order>
+                <ns:Order>
+                    <ns:CustomerID>
+                        <xsl:value-of select="'GREAL'"/>
+                    </ns:CustomerID>
+                    <ns:EmployeeID>
+                        <xsl:value-of select="'6'"/>
+                    </ns:EmployeeID>
+                    <ns:OrderDate>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns:OrderDate>
+                    <ns:RequiredDate>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns:RequiredDate>
+                    <pfx2:ShipInfo>
+                        <pfx2:ShipVia>
+                            <xsl:value-of select="2"/>
+                        </pfx2:ShipVia>
+                        <pfx2:Freight>
+                            <xsl:value-of select="4.42"/>
+                        </pfx2:Freight>
+                        <pfx2:ShipName>
+                            <xsl:value-of select="'Great Lakes Food Market'"/>
+                        </pfx2:ShipName>
+                        <pfx2:ShipAddress>
+                            <xsl:value-of select="'2732 Baker Blvd.'"/>
+                        </pfx2:ShipAddress>
+                        <pfx2:ShipCity>
+                            <xsl:value-of select="'Eugene'"/>
+                        </pfx2:ShipCity>
+                        <pfx2:ShipRegion>
+                            <xsl:value-of select="'OR'"/>
+                        </pfx2:ShipRegion>
+                        <pfx2:ShipPostalCode>
+                            <xsl:value-of select="97403"/>
+                        </pfx2:ShipPostalCode>
+                        <pfx2:ShipCountry>
+                            <xsl:value-of select="'USA'"/>
+                        </pfx2:ShipCountry>
+                    </pfx2:ShipInfo>
+                </ns:Order>
+            </pfx:Order>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Orders</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Orders</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

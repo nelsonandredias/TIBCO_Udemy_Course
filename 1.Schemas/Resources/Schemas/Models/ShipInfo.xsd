@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:ShipInfo="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/ShipInfo"
+	 targetNamespace="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/ShipInfo"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="ShipInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ShipVia" type="xs:int"/>
+				<xs:element name="Freight" type="xs:float"/>
+				<xs:element name="ShipName" type="xs:string"/>
+				<xs:element name="ShipAddress" type="xs:string"/>
+				<xs:element name="ShipCity" type="xs:string"/>
+				<xs:element name="ShipRegion" type="xs:string"/>
+				<xs:element name="ShipPostalCode" type="xs:int"/>
+				<xs:element name="ShipCountry" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
