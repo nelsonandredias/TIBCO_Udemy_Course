@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:pfx="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Users" xmlns:pfx2="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/Orders" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <import namespace="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Users" schemaLocation="/Resources/Schemas/Models/Users.xsd"/>
+    <import namespace="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/Orders" schemaLocation="/Resources/Schemas/Models/Orders.xsd"/>
+    <name>Data Format Orders</name>
+    <resourceType>ae.shared.ParseSharedResource</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <FormatType>Delimiter separated</FormatType>
+        <ColumnSeparator>,</ColumnSeparator>
+        <ColSeparatorRule>Treat all characters as entered as a single column separator string</ColSeparatorRule>
+        <LineSeparator>
+</LineSeparator>
+        <FillCharacter>Space</FillCharacter>
+        <LineLength>1</LineLength>
+        <DataFormat>
+            <xsd:element name="Order">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="CustomerID" type="xsd:string"/>
+                        <xsd:element name="EmployeeID" type="xsd:string"/>
+                        <xsd:element name="OrderDate" type="xsd:string"/>
+                        <xsd:element name="RequiredDate" type="xsd:string"/>
+                        <xsd:element name="ShipVia" type="xsd:string"/>
+                        <xsd:element name="Freight" type="xsd:string"/>
+                        <xsd:element name="ShipName" type="xsd:string"/>
+                        <xsd:element name="ShipAddress" type="xsd:string"/>
+                        <xsd:element name="ShipCity" type="xsd:string"/>
+                        <xsd:element name="ShipRegion" type="xsd:string"/>
+                        <xsd:element name="ShipPostalCode" type="xsd:string"/>
+                        <xsd:element name="ShipCountry" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </DataFormat>
+    </config>
+</BWSharedResource>
