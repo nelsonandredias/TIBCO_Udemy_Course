@@ -1,0 +1,35 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<ns0:Order xmlns:ns0 = "http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/Orders">
+	<ns1:Order xmlns:ns1 = "http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/Order">
+		<ns1:CustomerID>GREAL</ns1:CustomerID>
+		<ns1:EmployeeID>5</ns1:EmployeeID>
+		<ns1:OrderDate>2022-01-01T16:55:00.848Z</ns1:OrderDate>
+		<ns1:RequiredDate>2022-01-01T16:55:00.848Z</ns1:RequiredDate>
+		<ns2:ShipInfo xmlns:ns2 = "http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/ShipInfo">
+			<ns2:ShipVia>2</ns2:ShipVia>
+			<ns2:Freight>3.35</ns2:Freight>
+			<ns2:ShipName>Great Lakes Food Market</ns2:ShipName>
+			<ns2:ShipAddress>2732 Baker Blvd.</ns2:ShipAddress>
+			<ns2:ShipCity>Eugene</ns2:ShipCity>
+			<ns2:ShipRegion>OR</ns2:ShipRegion>
+			<ns2:ShipPostalCode>97403</ns2:ShipPostalCode>
+			<ns2:ShipCountry>USA</ns2:ShipCountry>
+		</ns2:ShipInfo>
+	</ns1:Order>
+	<ns1:Order xmlns:ns1 = "http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/Order">
+		<ns1:CustomerID>GREAL</ns1:CustomerID>
+		<ns1:EmployeeID>6</ns1:EmployeeID>
+		<ns1:OrderDate>2022-01-01T16:55:00.848Z</ns1:OrderDate>
+		<ns1:RequiredDate>2022-01-01T16:55:00.848Z</ns1:RequiredDate>
+		<ns2:ShipInfo xmlns:ns2 = "http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/ShipInfo">
+			<ns2:ShipVia>2</ns2:ShipVia>
+			<ns2:Freight>4.42</ns2:Freight>
+			<ns2:ShipName>Great Lakes Food Market</ns2:ShipName>
+			<ns2:ShipAddress>2732 Baker Blvd.</ns2:ShipAddress>
+			<ns2:ShipCity>Eugene</ns2:ShipCity>
+			<ns2:ShipRegion>OR</ns2:ShipRegion>
+			<ns2:ShipPostalCode>97403</ns2:ShipPostalCode>
+			<ns2:ShipCountry>USA</ns2:ShipCountry>
+		</ns2:ShipInfo>
+	</ns1:Order>
+</ns0:Order>

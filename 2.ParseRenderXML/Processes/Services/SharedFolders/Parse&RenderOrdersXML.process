@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx6="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderOrdersXMLResponse" xmlns:pfx7="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/Orders" xmlns:pfx8="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/Order" xmlns:pfx="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderCatalogXMLRequest" xmlns:pfx2="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Models/Catalog" xmlns:ns="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:pfx3="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Models/Course" xmlns:pfx4="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderCatalogXMLResponse" xmlns:pfx5="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderOrdersXMLRequest" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns1="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header" xmlns:ns4="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:ns3="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Response" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pd="http://xmlns.tibco.com/bw/process/2003">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderCatalogXMLRequest" schemaLocation="/Resources/Schemas/Services/Parse&amp;RenderCatalogXMLRequest.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Models/Catalog" schemaLocation="/Resources/Schemas/Models/Catalog.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderCatalogXMLResponse" schemaLocation="/Resources/Schemas/Services/Parse&amp;RenderCatalogXMLResponse.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Models/Course" schemaLocation="/Resources/Schemas/Models/Course.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderOrdersXMLRequest" schemaLocation="/Resources/Schemas/Services/Parse&amp;RenderOrdersXMLRequest.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderOrdersXMLResponse" schemaLocation="/Resources/Schemas/Services/Parse&amp;RenderOrdersXMLResponse.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/Orders" schemaLocation="/Resources/Schemas/Models/Orders.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/Order" schemaLocation="/Resources/Schemas/Models/Order.xsd"/>
+    <pd:name>Processes/Services/SharedFolders/Parse&amp;RenderOrdersXML.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx5:ParseRenderOrdersXMLRequest"/>
+    <pd:startX>150</pd:startX>
+    <pd:startY>137</pd:startY>
+    <pd:returnBindings>
+        <pfx6:ParseRenderOrdersXMLResponse>
+            <xsl:copy-of select="$Start/pfx5:ParseRenderOrdersXMLRequest/ns1:Header"/>
+            <pfx6:Body>
+                <ns3:Response>
+                    <ns3:message>
+                        <xsl:value-of select="'parse and render XML'"/>
+                    </ns3:message>
+                    <ns3:responseStatus>
+                        <xsl:value-of select="'SUCCESS'"/>
+                    </ns3:responseStatus>
+                </ns3:Response>
+            </pfx6:Body>
+        </pfx6:ParseRenderOrdersXMLResponse>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx6:ParseRenderOrdersXMLResponse"/>
+    <pd:endX>1040</pd:endX>
+    <pd:endY>136</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1638822046405</pd:targetNamespace>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>450</pd:x>
+        <pd:y>139</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx7:Order"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Read-File/ns4:ReadActivityOutputTextClass/fileContent/textContent"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>536</pd:x>
+        <pd:y>45</pd:y>
+        <pd:width>397</pd:width>
+        <pd:height>165</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Parse-XML/pfx7:Order/pfx8:Order</pd:over>
+            <pd:iterationElementSlot>currentOrder</pd:iterationElementSlot>
+            <pd:indexSlot>index</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Log</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Write File</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Log</pd:from>
+            <pd:to>Render XML</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Render XML</pd:from>
+            <pd:to>Write File</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Log">
+            <pd:type>com.tibco.pe.core.WriteToLogActivity</pd:type>
+            <pd:resourceType>ae.activities.log</pd:resourceType>
+            <pd:x>635</pd:x>
+            <pd:y>134</pd:y>
+            <config>
+                <role>User</role>
+            </config>
+            <pd:inputBindings>
+                <ns:ActivityInput>
+                    <message>
+                        <xsl:value-of select="tib:render-xml($currentOrder/pfx8:Order, false(), false())"/>
+                    </message>
+                </ns:ActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Render XML">
+            <pd:type>com.tibco.plugin.xml.XMLRendererActivity</pd:type>
+            <pd:resourceType>ae.activities.XMLRendererActivity</pd:resourceType>
+            <pd:x>742</pd:x>
+            <pd:y>133</pd:y>
+            <config>
+                <renderAsText>text</renderAsText>
+                <validateInput>true</validateInput>
+                <textEncoding>UTF-8</textEncoding>
+                <term ref="pfx8:Order"/>
+            </config>
+            <pd:inputBindings>
+                <xsl:copy-of select="$currentOrder/pfx8:Order"/>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Write File">
+            <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+            <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+            <pd:x>853</pd:x>
+            <pd:y>136</pd:y>
+            <config>
+                <encoding>text</encoding>
+                <compressFile>None</compressFile>
+            </config>
+            <pd:inputBindings>
+                <ns4:WriteActivityInputTextClass>
+                    <fileName>
+                        <xsl:value-of select="concat('C:\Users\NelsonDias\OneDrive - P8G Group, Lda\Ambiente de Trabalho\TIBCO_Udemy_Course\Files\Output\orders',$currentOrder/pfx8:Order/pfx8:EmployeeID,'.xml')"/>
+                    </fileName>
+                    <textContent>
+                        <xsl:value-of select="$Render-XML/xmlString"/>
+                    </textContent>
+                </ns4:WriteActivityInputTextClass>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Read File">
+        <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+        <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+        <pd:x>311</pd:x>
+        <pd:y>139</pd:y>
+        <config>
+            <encoding>text</encoding>
+        </config>
+        <pd:inputBindings>
+            <ns2:ReadActivityInputClass>
+                <fileName>
+                    <xsl:value-of select="concat($Start/pfx5:ParseRenderOrdersXMLRequest/pfx5:Body/pfx5:sourcePath,$Start/pfx5:ParseRenderOrdersXMLRequest/pfx5:Body/pfx5:sourceFileName)"/>
+                </fileName>
+            </ns2:ReadActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Read File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Read File</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

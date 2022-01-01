@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:ParseRenderOrdersXMLResponse="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderOrdersXMLResponse"
+	 xmlns:Header="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header"
+	 xmlns:Response="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Response"
+	 targetNamespace="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderOrdersXMLResponse"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header" schemaLocation="../Commons/Header.xsd"/>
+	<xs:import namespace="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Response" schemaLocation="../Commons/Response.xsd"/>
+	<xs:element name="ParseRenderOrdersXMLResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Header:Header"/>
+				<xs:element ref="ParseRenderOrdersXMLResponse:Body"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Body">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Response:Response"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

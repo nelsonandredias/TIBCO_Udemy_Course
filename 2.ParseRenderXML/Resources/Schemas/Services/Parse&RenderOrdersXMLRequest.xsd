@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:ParseRenderOrdersXMLRequest="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderOrdersXMLRequest"
+	 xmlns:Header="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header"
+	 targetNamespace="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderOrdersXMLRequest"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header" schemaLocation="../Commons/Header.xsd"/>
+	<xs:element name="ParseRenderOrdersXMLRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Header:Header"/>
+				<xs:element ref="ParseRenderOrdersXMLRequest:Body"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Body">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="sourcePath" type="xs:string"/>
+				<xs:element name="sourceFileName" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
