@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns5="http://www.tibco.com/schemas/7.Databases/Resources/Schemas/Services/DeleteCountriesByCountryCodeRequest" xmlns:pfx="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Models/Context" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Services/WriteFileRequest" xmlns:ns2="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns4="http://www.tibco.com/schemas/7.Databases/Resources/Schemas/Services/AddCountriesRequest" xmlns:ns3="http://www.tibco.com/schemas/7.Databases/Resources/Schemas/Services/GetCountriesRequest">
+    <pd:name>Tests/TestDeleteCountries.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1639049926483</pd:targetNamespace>
+    <pd:activity name="DeleteCountriesByCountryCode">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>286</pd:x>
+        <pd:y>160</pd:y>
+        <config>
+            <processName>/Processes/Services/Database/DeleteCountriesByCountryCode.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns5:DeleteCountriesByCountryCodeRequest>
+                <ns2:Header>
+                    <pfx:Context>
+                        <pfx:correlationId>
+                            <xsl:value-of select="'12345677'"/>
+                        </pfx:correlationId>
+                    </pfx:Context>
+                    <ns2:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns2:timestamp>
+                </ns2:Header>
+                <ns5:Body>
+                    <ns5:records>
+                        <ns5:countryCode>
+                            <xsl:value-of select="'RS'"/>
+                        </ns5:countryCode>
+                    </ns5:records>
+                </ns5:Body>
+            </ns5:DeleteCountriesByCountryCodeRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>DeleteCountriesByCountryCode</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>DeleteCountriesByCountryCode</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>
