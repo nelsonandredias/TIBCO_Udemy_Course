@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:Order="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/Order"
+	 xmlns:ShipInfo="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/ShipInfo"
+	 targetNamespace="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/Order"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.tibco.com/schemas/1.Schemas/Resources/Schemas/Models/ShipInfo" schemaLocation="ShipInfo.xsd"/>
+	<xs:element name="Order">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CustomerID" type="xs:string"/>
+				<xs:element name="EmployeeID" type="xs:int"/>
+				<xs:element name="OrderDate" type="xs:dateTime"/>
+				<xs:element name="RequiredDate" type="xs:dateTime"/>
+				<xs:element ref="ShipInfo:ShipInfo"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

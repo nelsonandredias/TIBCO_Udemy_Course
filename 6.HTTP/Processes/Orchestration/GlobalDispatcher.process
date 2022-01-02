@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Models/Context" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header" xmlns:ns="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Orchestration/ProcessCountriesRequest" xmlns:ns1="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Response" xmlns:ns3="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Orchestration/ProcessCountriesResponse">
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Models/Context" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header" xmlns:ns="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:pfx3="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Orchestration/ProcessOrdersRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Orchestration/ProcessCountriesRequest" xmlns:ns1="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Response" xmlns:ns4="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Orchestration/ProcessOrdersResponse" xmlns:ns3="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Orchestration/ProcessCountriesResponse">
     <xsd:import namespace="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Models/Context" schemaLocation="/Resources/Schemas/Commons/Context.xsd"/>
     <pd:name>Processes/Orchestration/GlobalDispatcher.process</pd:name>
     <pd:startName>HTTP Receiver</pd:startName>
@@ -63,8 +63,8 @@
     <pd:activity name="Validate Resource">
         <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
         <pd:resourceType>ae.activities.null</pd:resourceType>
-        <pd:x>719</pd:x>
-        <pd:y>206</pd:y>
+        <pd:x>717</pd:x>
+        <pd:y>207</pd:y>
         <config/>
         <pd:inputBindings/>
     </pd:activity>
@@ -109,8 +109,8 @@
     <pd:activity name="Send-HTTP-Response-1">
         <pd:type>com.tibco.plugin.http.HTTPResponseActivity</pd:type>
         <pd:resourceType>httppalette.httpWebResponse</pd:resourceType>
-        <pd:x>1084</pd:x>
-        <pd:y>353</pd:y>
+        <pd:x>1121</pd:x>
+        <pd:y>359</pd:y>
         <config>
             <closeConnection>true</closeConnection>
             <eventSource>HTTP Receiver</eventSource>
@@ -131,15 +131,33 @@
         <pd:inputBindings>
             <ResponseActivityInput>
                 <xsl:choose>
-                    <xsl:when test="$HTTP-Receiver/ProcessStarterOutput/Method = 'GET'">
-                        <asciiContent>
-                            <xsl:value-of select="$ProcessCountries/ns3:ProcessCountriesResponse/ns3:Body/ns1:Response/ns1:data/*"/>
-                        </asciiContent>
+                    <xsl:when test="$HTTP-Receiver/ProcessStarterOutput/Command = '/Countries'">
+                        <xsl:choose>
+                            <xsl:when test="$HTTP-Receiver/ProcessStarterOutput/Method = 'GET'">
+                                <asciiContent>
+                                    <xsl:value-of select="$ProcessCountries/ns3:ProcessCountriesResponse/ns3:Body/ns1:Response/ns1:data/*"/>
+                                </asciiContent>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <asciiContent>
+                                    <xsl:value-of select="$ProcessCountries/ns3:ProcessCountriesResponse/ns3:Body/ns1:Response/ns1:message"/>
+                                </asciiContent>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>
-                        <asciiContent>
-                            <xsl:value-of select="$ProcessCountries/ns3:ProcessCountriesResponse/ns3:Body/ns1:Response/ns1:message"/>
-                        </asciiContent>
+                        <xsl:choose>
+                            <xsl:when test="$HTTP-Receiver/ProcessStarterOutput/Method = 'GET'">
+                                <asciiContent>
+                                    <xsl:value-of select="$ProcessOrders/ns4:ProcessOrdersResponse/ns4:Body/ns1:Response/ns1:data/*"/>
+                                </asciiContent>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <asciiContent>
+                                    <xsl:value-of select="$ProcessOrders/ns4:ProcessOrdersResponse/ns4:Body/ns1:Response/ns1:message"/>
+                                </asciiContent>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
                 <Headers>
@@ -192,8 +210,8 @@
     <pd:activity name="ProcessCountries">
         <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
         <pd:resourceType>ae.process.subprocess</pd:resourceType>
-        <pd:x>872</pd:x>
-        <pd:y>351</pd:y>
+        <pd:x>1006</pd:x>
+        <pd:y>230</pd:y>
         <config>
             <processName>/Processes/Interface/ProcessCountries.process</processName>
         </config>
@@ -226,6 +244,51 @@
             </ns2:ProcessCountriesRequest>
         </pd:inputBindings>
     </pd:activity>
+    <pd:activity name="Process Request">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>872</pd:x>
+        <pd:y>362</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="ProcessOrders">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1012</pd:x>
+        <pd:y>502</pd:y>
+        <config>
+            <processName>/Processes/Interface/ProcessOrders.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx3:ProcessOrdersRequest>
+                <pfx2:Header>
+                    <xsl:copy-of select="$Context/pfx:Context"/>
+                    <pfx2:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </pfx2:timestamp>
+                </pfx2:Header>
+                <pfx3:Body>
+                    <pfx3:method>
+                        <xsl:value-of select="$HTTP-Receiver/ProcessStarterOutput/Method"/>
+                    </pfx3:method>
+                    <xsl:if test="$HTTP-Receiver/ProcessStarterOutput/QueryString">
+                        <pfx3:queryParam>
+                            <xsl:value-of select="$HTTP-Receiver/ProcessStarterOutput/QueryString"/>
+                        </pfx3:queryParam>
+                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="string-length($HTTP-Receiver/ProcessStarterOutput/PostData)>0">
+                            <pfx3:data>
+                                <xsl:copy-of select="$HTTP-Receiver/ProcessStarterOutput/PostData"/>
+                            </pfx3:data>
+                        </xsl:when>
+                        <xsl:otherwise/>
+                    </xsl:choose>
+                </pfx3:Body>
+            </pfx3:ProcessOrdersRequest>
+        </pd:inputBindings>
+    </pd:activity>
     <pd:transition>
         <pd:from>HTTP Receiver</pd:from>
         <pd:to>GenerateUUIDv2</pd:to>
@@ -249,12 +312,14 @@
     </pd:transition>
     <pd:transition>
         <pd:from>Validate Resource</pd:from>
-        <pd:to>ProcessCountries</pd:to>
-        <pd:xpathDescription>/Countries</pd:xpathDescription>
+        <pd:to>Process Request</pd:to>
+        <pd:xpathDescription>/Countries or /Orders</pd:xpathDescription>
         <pd:lineType>Multiple Bends</pd:lineType>
         <pd:lineColor>-16777216</pd:lineColor>
         <pd:conditionType>xpath</pd:conditionType>
-        <pd:xpath>$HTTP-Receiver/ProcessStarterOutput/Command = '/Countries'</pd:xpath>
+        <pd:xpath>$HTTP-Receiver/ProcessStarterOutput/Command = '/Countries'
+or
+$HTTP-Receiver/ProcessStarterOutput/Command = '/Orders'</pd:xpath>
     </pd:transition>
     <pd:transition>
         <pd:from>Send-HTTP-Response-1</pd:from>
@@ -293,6 +358,31 @@
     </pd:transition>
     <pd:transition>
         <pd:from>ProcessCountries</pd:from>
+        <pd:to>Send-HTTP-Response-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Process Request</pd:from>
+        <pd:to>ProcessCountries</pd:to>
+        <pd:xpathDescription>/Countries</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$HTTP-Receiver/ProcessStarterOutput/Command = '/Countries'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Process Request</pd:from>
+        <pd:to>ProcessOrders</pd:to>
+        <pd:xpathDescription>/Orders</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$HTTP-Receiver/ProcessStarterOutput/Command = '/Orders'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ProcessOrders</pd:from>
         <pd:to>Send-HTTP-Response-1</pd:to>
         <pd:lineType>Default</pd:lineType>
         <pd:lineColor>-16777216</pd:lineColor>
